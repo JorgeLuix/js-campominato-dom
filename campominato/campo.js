@@ -6,7 +6,7 @@ levelForm.addEventListener("submit", play);
 
 
 //funzione per disegnare quadratino//
-function drawSquare(index, sidenumSquares) {
+function drawSquare( index, sidenumSquares) {
   const square = document.createElement("div");
   square.classList.add("square");
   square.style.width = `calc(100% / ${sidenumSquares} )`;
@@ -23,6 +23,7 @@ function getRndNumber(max) {
 
 function generateBombs(bombnum, numSquares) {
   const bombs = [];
+  console.log("🚀 ~ file: campo.js:26 ~ generateBombs ~ bombs:", bombs)
   while (bombs.length <= bombnum -1) {
     const bomb = getRndNumber(numSquares);
     if (bombs.indexOf(bomb) === -1 && bomb !== 0) {
@@ -32,17 +33,17 @@ function generateBombs(bombnum, numSquares) {
   }
   return bombs;
 }
+
 function sendMessage(messaggio) {
   
   score.innerHTML = messaggio;
-
-  /*score += 10;
-  scoreElement.innerText = `Score: ${score}`; */
 }
-
 
 function play(e) {
   e.preventDefault();
+
+  const scoreElement = document.getElementById("score");
+  
   const playground = document.getElementById("playground");
   playground.innerHTML = "";
 
@@ -53,9 +54,10 @@ function play(e) {
   let gameover = false;
   let firstBombIndex = -1;
   let score = 0;
+  
 
   const level = document.getElementById("level").value;
-  const scoreElement = document.getElementById("score");
+  
   
   let squareNumbers;
   switch (level) {
@@ -108,7 +110,8 @@ function play(e) {
     if (isBomb) { // -> = true
       this.classList.add("sq-red");
       this.innerHTML = `<i class="fas fa-bomb"></i>`;
-      messaggio = ` Hai perso !! Il tuo punteggio e: ${score}`;
+      messaggio = `<i class="fa-solid fa-face-dizzy"></i>
+      Hai perso!! Il tuo punteggio è: ${score}`; 
 
       if (firstBombIndex === 0) { // -> 
         firstBombIndex = index;
@@ -120,6 +123,7 @@ function play(e) {
 
     } else {
       this.classList.add("sq-blue");
+      this.innerHTML = `<i class="fa-solid fa-flag"></i>`;
       score++;
       messaggio = `Il tuo punteggio e: ${score}`;
       if (!gameover) {
@@ -132,8 +136,6 @@ function play(e) {
 
   let squareforRow = Math.sqrt(squareNumbers);
   const bombs = generateBombs(NUM_BOMBS, squareNumbers);
-  console.log("🚀 ~ file: campo.js:61 ~ play ~ bombs:", bombs)
- 
 
   for (let i = 1; i <= squareNumbers; i++) {
     const isBomb = bombs.indexOf(i) !== -1;

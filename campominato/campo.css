@@ -17,6 +17,11 @@ main{
     display: flex;
     flex-flow: row wrap;
     background: #7fffd4;
+
+}
+
+.square span{
+    opacity: 0;
 }
 .square { /*quadrato griglia*/
 

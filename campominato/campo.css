@@ -1,0 +1,39 @@
+.wrapper {
+    background-color: #7fffd4;
+}
+header,
+footer {
+    background-color: white;
+    height: 80px;
+}
+main{
+    height: calc(100% - 160px);
+    overflow-y: auto;
+}
+#playground{ /*griglia*/
+    
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-flow: row wrap;
+    background: #7fffd4;
+}
+.square { /*quadrato griglia*/
+
+    width: calc(100% - 10);/*10 e esempio*/
+    height: calc(100% - 10);
+    display: flex;
+    border: 1px solid black ;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 3px 3px 0 0 rgba(255, 255, 255, 0.5), 
+    inset -3px -3px 0 0 rgba(0, 0, 0, 0.25);
+ }
+ .sq-blue{
+    background-color: blue;
+    color: yellow;
+ }
+ .sq-red {
+    background-color: red;
+    color: black;
+ }

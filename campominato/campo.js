@@ -32,6 +32,13 @@ function generateBombs(bombnum, numSquares) {
   }
   return bombs;
 }
+function sendMessage(messaggio) {
+  
+  score.innerHTML = messaggio;
+
+  /*score += 10;
+  scoreElement.innerText = `Score: ${score}`; */
+}
 
 
 function play(e) {
@@ -39,10 +46,12 @@ function play(e) {
   const playground = document.getElementById("playground");
   playground.innerHTML = "";
 
+  let messaggio = `Seleziona la dificoltà e premmi play`;
+  sendMessage(messaggio);
+
   const NUM_BOMBS = 16;
   let gameover = false;
   let firstBombIndex = -1;
-  let messaggio = `Seleziona la dificoltà e premmi play`;
   let score = 0;
 
   const level = document.getElementById("level").value;
@@ -60,11 +69,6 @@ function play(e) {
       squareNumbers = 49;
       break;
   }
- function updateScore() {
- 
-  score += 10;
-  scoreElement.innerText = `Score: ${score}`;
-}
  
 
   function checkWin() {
@@ -73,8 +77,7 @@ function play(e) {
     const numSafeSquares = squareNumbers - NUM_BOMBS;
     if (numBlueSquares === numSafeSquares) {
       removeSquareListeners();
-    // alert('Hai vinto!')
-
+      messaggio = ` Hai vinto !! Il tuo punteggio e: ${score}`;
     }
     }
   
@@ -97,6 +100,7 @@ function play(e) {
     }
   }
 
+  //function che fa interagire al usuario con il gioco
   function squareClickHandler() {
     const index = parseInt(this.innerHTML); //per modificare il contenuto del quadrato(square)
     const isBomb = bombs.indexOf(index) !== -1; //controllo di INDEX nel array(bombs)
@@ -104,6 +108,7 @@ function play(e) {
     if (isBomb) { // -> = true
       this.classList.add("sq-red");
       this.innerHTML = `<i class="fas fa-bomb"></i>`;
+      messaggio = ` Hai perso !! Il tuo punteggio e: ${score}`;
 
       if (firstBombIndex === 0) { // -> 
         firstBombIndex = index;
@@ -111,15 +116,17 @@ function play(e) {
         revealBombs();
         removeSquareListeners(); //-> evita che il gioco vada avanti una volta trovata una bomba
         gameover = true;
-        //alert("Game over!");
-        
       }
+
     } else {
       this.classList.add("sq-blue");
+      score++;
+      messaggio = `Il tuo punteggio e: ${score}`;
       if (!gameover) {
         checkWin();
       }
     }
+    sendMessage(messaggio);
   }
 
 
